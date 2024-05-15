@@ -1,0 +1,586 @@
+<html>
+<head>
+<title>TiLT Help</title>
+<meta http-equiv="Content-type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="styles.css" />
+</head>
+
+<body>
+<p id="title">TiLT Help<br/><span id="titletail">&nbsp;</span></p>
+<p id="toc_title">Contents</p>
+<hr/>
+<p id="toc_item1"><a href="#about">About</a></p>
+<p id="toc_item1"><a href="#menus">Menus</a></p>
+<p id="toc_item1"><a href="#working_with_patterns">Working with patterns</a></p>
+<p id="toc_item2"><a href="#add_patterns">Add patterns</a></p>
+<p id="toc_item3"><a href="#pattern_tips">Pattern tips!</a></p>
+<p id="toc_item2"><a href="#edit_patterns">Edit patterns</a></p>
+<p id="toc_item2"><a href="#remove_patterns">Remove patterns</a></p>
+<p id="toc_item2"><a href="#disable_enable_patterns">Disable/Enable patterns</a></p>
+<p id="toc_item2"><a href="#save_patterns_to_file">Save patterns to file</a></p>
+<p id="toc_item2"><a href="#open_patterns_file">Open patterns file</a></p>
+<p id="toc_item1"><a href="#pre_processing">Pre-processing</a></p>
+<p id="toc_item1"><a href="#post_processing">Post-processing</a></p>
+<p id="toc_item1"><a href="#preview">Preview</a></p>
+<p id="toc_item2"><a href="#change_preview_font">Change Preview Font</a></p>
+<p id="toc_item2"><a href="#find_in_preview">Search in Preview</a></p>
+<p id="toc_item1"><a href="#view_process_details">View process details</a></p>
+<p id="toc_item1"><a href="#accelerators">Accelerators</a></p>
+<p id="toc_item1"><a href="#links">Links</a></p>
+<hr/>
+<p>&nbsp;</p>
+<h1 id="about">About</h1>
+<p>TiLT is a tool for locking text in one or more xliff files by using one or more search expressions. The search expressions could be either plain text or regular expressions (pattern match objects).</p>
+<p>You add the search expressions to a list and decide if the found text should be classed as External or Internal. Then add one or more xliff files and execute.</p>
+<p>Example with xml file where TiLT is useful:</p>
+
+<pre id="code">
+&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;items&gt;
+	&lt;item&gt;CODE OF BUSINESS CONDUCT&lt;/item&gt;
+	&lt;item&gt;Welcome %1$s! Please view your signing status in the below overview.&lt;/item&gt;
+	&lt;item&gt;Once you have reviewed the Code of Conduct, click the &quot;Acknowledge&quot; button.&lt;/item&gt;
+	&lt;item&gt;By proceeding, you also agree to the &amp;lt;font color="%1$s"&amp;gt;Terms of Service
+	&amp;lt;/font&amp;gt; and &amp;lt;font color="%2$s"&amp;gt;Privacy Policy&amp;lt;/font&amp;gt;.&lt;/item&gt;
+&lt;/items&gt;
+</pre>
+
+<p>First we create an xliff from this xml by using Translation Workspace Convert Tool. The output will look like this in Translation Workspace Xliff Editor:</p>
+<img src="./images/mla_prepared_xml.png"/>
+
+<p>Now we want to lock code like <b>%1$s</b> and <b>%2$s</b>. We also want to lock the markup code <b>&lt;font ...&gt;&lt;/font&gt;</b>. Neither should the <b>"Acknowledge"</b> button name be translated. The client has also decided that the text <b>Code of Conduct</b> and <b>CODE OF BUSINESS CONDUCT</b> should be left untouched.</p>
+
+<p>By adding the search expressions in TiLT and executing them on the file, the xliff will look like this in Translation Workspace Xliff Editor:</p>
+<img src="./images/tilted_xml.png"/>
+
+<p>In the image above you can see the text <b>CODE OF BUSINESS CONDUCT</b> set to External and the others set to Internal.</p>
+
+<p>&nbsp;</p>
+<h1 id="menus">Menus<h1>
+<table border="1">
+	<tr>
+		<td colspan=3 valign=top><b>File menu</b></td>
+	</tr>
+	<tr>
+		<td align="center"><img src="./images/new16.png"/>
+		<td>New</td>
+		<td>Create an empty pattern list. If there are any unsaved patterns loaded you will be prompted to save.</td>
+	</tr>
+	<tr>
+		<td align="center"><img src="./images/open16.png"/>
+		<td>Open</td>
+		<td>Open a pattern list file. If you have patterns loaded you will be prompted about whether you want to replace or append to current list.</td>
+	</tr>
+	<tr>
+		<td align="center"><img src="./images/save16.png"/>
+		<td>Save</td>
+		<td>Save the loaded pattern list.</td>
+	</tr>
+	<tr>
+		<td align="center"><img src="./images/saveas16.png"/>
+		<td>Save As</td>
+		<td>Save the loaded pattern list as...</td>
+	</tr>
+	<tr>
+		<td align="center"><img src="./images/convert16.png"/>
+		<td>Convert text2inline</td>
+		<td>Convert a text2inline pattern list as a TiLT pattern list.</td>
+	</tr>
+	<tr>
+		<td align="center"><img src="./images/tms16.png"/>
+		<td>Export for TMS</td>
+		<td>Export the loaded pattern list as a TMS script. The TMs script is an xml file embedding the core TiLT code and the patterns.</td>
+	</tr>
+	<tr>
+		<td align="center"><img src="./images/addfile16.png"/>
+		<td>Import textfile</td>
+		<td>Import a textfile to the pattern list.</td>
+	</tr>
+	<tr>
+		<td align="center"><img src="./images/quit16.png"/>
+		<td>Quit</td>
+		<td>Quit TiLT</td>
+	</tr>
+	<tr>
+		<td colspan=3 valign=top>&nbsp;</td>
+	</tr>
+	<tr>
+		<td colspan=3 valign=top><b>Settings menu</b></td>
+	</tr>
+	<tr>
+		<td align="center"><img src="./images/font16.png"/>
+		<td>Select Preview Font</td>
+		<td>Select font for the preview.</td>
+	</tr>
+	<tr>
+		<td colspan=3 valign=top>&nbsp;</td>
+	</tr>
+	<tr>
+		<td colspan=3 valign=top><b>Help menu</b></td>
+	</tr>
+	<tr>
+		<td align="center"><img src="./images/help16.png"/>
+		<td>Help</td>
+		<td>Open this help.</td>
+	</tr>
+	<tr>
+		<td align="center"><img src="./images/about16.png"/>
+		<td>About</td>
+		<td>Brief info about TiLT.</td>
+	</tr>
+	<tr>
+		<td align="center"><img src="./images/releasenotes16.png"/>
+		<td>Release Notes</td>
+		<td>Open the release notes.</td>
+	</tr>
+	<tr>
+		<td colspan=3 valign=top>&nbsp;</td>
+	</tr>
+	<tr>
+		<td align="center"><img src="./images/button_process_details.png"/>
+		<td>View pre-process details</td>
+		<td>Open the pre-process details for a more granular information. See <a href="#view_process_details">View process details</a> for more information.</td>
+	</tr>
+</table>
+
+<p>&nbsp;</p>
+<h1 id="working_with_patterns">Working with patterns</h1>
+<table border="1">
+	<tr>
+		<td colspan=3 valign=top><b>Buttons</b></td>
+	</tr>
+	<tr>
+		<td align="center"><img src="./images/add16.png"/>
+		<td>Add pattern</td>
+		<td>If there are no characters in the pattern editor text field the cursor will be put in the pattern editor text field so you can start typing a pattern.<br/>
+If there are any characters in the pattern editor text field the text will be added to the pattern list.</td>
+	</tr>
+	<tr>
+		<td align="center"><img src="./images/edit16.png"/>
+		<td>Edit selected pattern</td>
+		<td>Edit the selected pattern. You can also do this by <b>double-clicking</b> a pattern in the list.</td>
+	</tr>
+	<tr>
+		<td align="center"><img src="./images/remove16.png"/>
+		<td>Remove selected pattern</td>
+		<td>Remove the selected pattern from the list.</td>
+	</tr>
+	<tr>
+		<td align="center"><img src="./images/clear16.png"/>
+		<td>Remove all patterns</td>
+		<td>Remove all patterns from the list.<br/>
+<b>NOTE!</b> TiLT handles pattern files about the same as any text editor. This means that if you have a pattern file open (see <a href="#open_patterns_file">Open patterns file</a>) and remove all patterns from the list, the file is still open. So if you now save the file you lose all previous data you have saved in that file.</td>
+	</tr>
+</table>
+
+<p>&nbsp;</p>
+<h2 id="add_patterns">Add patterns</h2>
+<p>Patterns are added by creating them in the pattern editor in the bottom left in the TiLT main window.
+Enter a pattern in the pattern editor text field, add one or more flags by checking the check boxes.</p>
+<p>If TiLT should recognize the pattern as a text string you select the <i id="ui">&lt;plain&gt;</i> option in the leftmost drop-down list. If you want TiLT to recognize the pattern as a regular expression select the <i id="ui">&lt;regex&gt;</i> option in the leftmost drop-down list. For help regarding regular expressions see <a href="#links">Links</a>.</p>
+<p>You also have to decide whether the found text in the target xliff file(s) should be marked as External or Internal. You do this by selecting one of the two options in the rightmost drop-down list.</p>
+<p>See also <a href="#preview">Preview</a> for an alternative way to add patterns by selecting them from the opened xliff file.</p>
+
+<p><img src="./images/patternedit_plain.png"/></p>
+<p>The image above shows an example of a text string pattern, output will be External.</p>
+
+<p><img src="./images/pattern_added1.png"/></p>
+<p>When you click the <i id="ui">&lt;Add pattern&gt;</i> button (or use <a href="#accelerators">accelerator</a> keys) it will appear in the list as seen in the image above.</p>
+
+<p><img src="./images/patternedit_regex.png"/></p>
+<p>The image above shows an example of a regular expression where the '.' operator also matches newlines, output will be Internal.</p>
+
+<p><img src="./images/pattern_added2.png"/></p>
+<p>When you click the <i id="ui">&lt;Add pattern&gt;</i> button (or use <a href="#accelerators">accelerator</a> keys) it will be appended to the list as seen in the image above.</p>
+
+<p>&nbsp;</p>
+<h3 id="pattern_tips">Pattern tips!</h3>
+<p><b>Search for whole word only</b> - Lets say you want to search for the word <b><i>is</i></b> in the sentence <b><i>This text is a test text</i></b>.<br/>
+If you search for <b><i>is</i></b> as plain text you will get two matches: <b><i>Th<mark>is</mark> text <mark>is</mark> a test text</i></b>, which might not be what you wanted.<br/>
+To solve this you can use the <B><i>\b</i></b> regex empty string operator. Searching the example text above with the regular expression <b><i>\bis\b</i></b> will now match the whole word only: <b><i>This text <mark>is</mark> a test text</i></b>.<br/><br/>
+Explanation from the official <a href="http://docs.python.org/2/library/re.html">Python regex documentation</a>: <b>\b</b> <i>Matches the empty string, but only at the beginning or end of a word. A word is defined as a sequence of alphanumeric or underscore characters, so the end of a word is indicated by whitespace or a non-alphanumeric, non-underscore character. Note that formally, \b is defined as the boundary between a \w and a \W character (or vice versa), or between \w and the beginning/end of the string.</i></p>
+
+<p>&nbsp;</p>
+<h2 id="edit_patterns">Edit patterns</h2>
+<p>If you want to edit a pattern you have added to your list you can do that by selecting it in the list and clicking the <i id="ui">&lt;Edit selected pattern&gt;</i> button (or use <a href="#accelerators">accelerator</a> keys).</p>
+<p>The pattern will be populated in the pattern editor for you to edit. When you are done editing you add the edited pattern to the list by clicking the <i id="ui">&lt;Add pattern&gt;</i> button (or use <a href="#accelerators">accelerator</a> keys).</p>
+
+<p>&nbsp;</p>
+<h2 id="remove_patterns">Remove patterns</h2>
+<p>If you want to remove a pattern you have added to your list you can do that by selecting it in the list and clicking the <i id="ui">&lt;Remove selected pattern&gt;</i> button (or use <a href="#accelerators">accelerator</a> keys).</p>
+<p>If you want to remove all patterns in the list you click the <i id="ui">&lt;Remove all patterns&gt;</i> button (or use <a href="#accelerators">accelerator</a> keys).</p>
+<p><b>NOTE!</b> TiLT handles pattern files about the same as any text editor. This means that if you have a pattern file open (see <a href="#open_patterns_file">Open patterns file</a>) and remove all patterns from the list, the file is still open. So if you now save the file you lose all previous data you have saved in that file.</p>
+
+<p>&nbsp;</p>
+<h2 id="disable_enable_patterns">Disable/Enable patterns</h2>
+<p>If you want to keep a pattern but temporarily not want to use it you can do that by selecting it in the list and unchecking the <i id="ui">enabled</i> checkbox (or use <a href="#accelerators">accelerator</a> keys).</p>
+<p>You can enable a disabled pattern by selecting it in the list and checking the <i id="ui">enabled</i> checkbox (or use <a href="#accelerators">accelerator</a> keys).</p>
+
+<p><img src="./images/patterns_disabled_and_enabled1.png"/></p>
+<p>Unselected enabled patterns in the list have a black font color. Unselected disabled patterns in the list have a grey font color.<br/>
+In the image above the pattern <i>Code of Conduct</i> is disabled. All other patterns are enabled.</p>
+
+<p><img src="./images/patterns_disabled_and_enabled2.png"/>&nbsp;&nbsp;&nbsp;<img src="./images/patterns_disabled_and_enabled3.png"/></p>
+<p>A selected enabled pattern in the list is highlighted green. A selected disabled pattern in the list is highlighted grey.<br/>
+In the leftside image above the selected pattern <i>"Acknowledge"</i> is enabled. In the rightside image above the selected pattern <i>Code of Conduct</i> is disabled.</p>
+
+<p>&nbsp;</p>
+<h2 id="options">Options</h2>
+<p>Right above the pattern list you find the global options for the currently loaded patterns.</p>
+<p><img src="./images/pre-process_filter.png"/></p>
+<p>In the <i id="ui">&lt;Pre-process Filter&gt;</i> drop-down list you set the parsing filter for TiLT. By default TiLT only parse the translatable segments in an xliff but you have the option to let TiLT parse without filter ie. all segments will be affected by TiLT pre-process.</p>
+<p><img src="./images/add_equiv-text_attribute.png"/></p>
+<p>By checking the <i id="ui">&lt;Add equiv-text attribute&gt;</i> checkbox the <b>equiv-text</b> attribute will be added to all TiLT inline code. The value of the <b>equiv-text</b> attribute is the deserialized inline code. If an <b>equiv-text</b> attribute is present Translation Workspace Xliff Editor will display that value instead of the actual code. If you uncheck the <i id="ui">&lt;Add equiv-text attribute&gt;</i> checkbox the inline code will be displayed as is. The <i id="ui">&lt;Add equiv-text attribute&gt;</i> checkbox is checked by default.</i></p>
+<p><img border="1" src="./images/equiv-text_before_tilt.png"/></p>
+<p>The image above shows a segment with serialized code before TiLT pre-process.</p>
+<p><img border="1" src="./images/equiv-text_active.png"/></p>
+<p>The image above shows the TiLT pre-processed segment with the <b>equiv-text</b> attribute added.</p>
+<p><img border="1" src="./images/equiv-text_inactive.png"/></p>
+<p>The image above shows the TiLT pre-processed segment without the <b>equiv-text</b> attribute.</p>
+<p><b>NOTE!</b> Adding the <b>equiv-text</b> attribute to the xliff do not affect the code. It is stored as is. It is just a way to display the code nicely to the translator.</p>
+
+<p>&nbsp;</p>
+<h2 id="save_patterns_to_file">Save patterns to file</h2>
+<p>You save your patterns by clicking the <i id="ui">&lt;Save&gt;</i> or the <i id="ui">&lt;Save as...&gt;</i> button, or from the <i id="ui">&lt;File&gt;</i> menu. The patterns are stored in an xml format with the <b>.tilt</b> file extension. The options will be stored in the file as well.</p>
+<p>Example of how it looks if you open it in a text editor (Notepad or similar):</p>
+<pre id="code">
+&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;patterns&gt;
+	&lt;options equiv-text="true" filter="translatable"/&gt;
+	&lt;pattern enabled="true" type="plain" output="external" flags=""&gt;&lt;![CDATA[CODE OF BUSINESS CONDUCT]]&gt;&lt;/pattern&gt;
+	&lt;pattern enabled="true" type="plain" output="internal" flags=""&gt;&lt;![CDATA["Acknowledge"]]&gt;&lt;/pattern&gt;
+	&lt;pattern enabled="false" type="plain" output="internal" flags="I"&gt;&lt;![CDATA[Code of Conduct]]&gt;&lt;/pattern&gt;
+	&lt;pattern enabled="true" type="regex" output="internal" flags=""&gt;&lt;![CDATA[&lt;.+?&gt;]]&gt;&lt;/pattern&gt;
+	&lt;pattern enabled="true" type="regex" output="internal" flags=""&gt;&lt;![CDATA[%[0-9]\$s]]&gt;&lt;/pattern&gt;
+&lt;/patterns&gt;
+</pre>
+
+<p>&nbsp;</p>
+<h2 id="open_patterns_file">Open patterns file</h2>
+<p>You can open a collection of stored patterns from a <b>.tilt</b> file by clicking the <i id="ui">&lt;Open patternlist&gt;</i> button or from the <i id="ui">&lt;File&gt;</i> menu. You can also use <b>drag-and-drop</b>.</p>
+
+<p><img src="./images/replace_or_append.png"/></p>
+<p>If you already have patterns in the list you will be prompted about whether you want to replace that list with the one you are about to open or if you want to append to that list, see image above.</p>
+
+<p><img src="./images/patterns_added.png"/></p>
+<p>The example file above will populate the pattern list and set the options as seen in the image above.</p>
+
+<p>&nbsp;</p>
+<h1 id="pre_processing">Pre-processing</h1>
+<table border="1">
+	<tr>
+		<td colspan=3 valign=top><b>Buttons and checkboxes</b></td>
+	</tr>
+	<tr>
+		<td align="center"><img src="./images/button_add.png"/>
+		<td>Add</td>
+		<td>Add xliff files for pre-processing. You add files by folder.</td>
+	</tr>
+	<tr>
+		<td align="center"><img src="./images/button_remove.png"/>
+		<td>Remove</td>
+		<td>Remove selected file(s) from the list.</td>
+	</tr>
+	<tr>
+		<td align="center"><img src="./images/button_clear.png"/>
+		<td>Clear</td>
+		<td>Remove all files from the list.</td>
+	</tr>
+	<tr>
+		<td align="center"><img src="./images/button_go.png"/>
+		<td>Go</td>
+		<td>Run the pre-process.</td>
+	</tr>
+	<tr>
+		<td align="center"><img src="./images/save_log.png"/>
+		<td>Save Log</td>
+		<td>Save the result to an html log file.</td>
+	</tr>
+	<tr>
+		<td align="center"><img src="./images/dry_run.png"/>
+		<td>Dry run</td>
+		<td>When checked TiLT do not save the files. This way you can test the patterns on the files and see the outcome.</td>
+	</tr>
+</table>
+
+<p>Select the <i id="ui">&lt;Pre Process&gt;</i> tab and add one or more files to the file list. You do that by clicking the <i id="ui">&lt;Add&gt;</i> button or using <b>drag-and-drop</b>.</p>
+
+<p>You can remove one or more files from the file list. Select one or more files in the list and click the <i id="ui">&lt;Remove&gt;</i> button, which will remove all selected files from the list. Remove all files from the list by clicking the <i id="ui">&lt;Clear&gt;</i> button.</p>
+
+<p>When you are ready adding files and have the patterns you want to apply loaded, click the <i id="ui">&lt;Go&gt;</i> button to execute the pre-process.</p>
+
+<p><b>Note!</b> TiLT only processes source nodes. This means that you only use TiLT pre-processing on xliff files before they have been segmented/translated. If you pre-process a segmented/translated file TiLT will show a warning. The source node will have been pre-processed though.</p>
+
+<p><b>Note!</b> TiLT is developed for xliff files created by Translation Workspace Tools. If you use TiLT on third party xliff files it might not work properly. It is important that you check any third party xliff file thoroughly after pre-processing it. TiLT will warn when pre-processing third party xliff files.</p>
+
+<p><b>Note! x-text:</b> You will get a notification when pre-processing xliff files that has been created using Translation Workspace Text Filter. The Translation Workspace XML parser and the Translation Workspace Text File parser escape and unescape markup code differently. This could lead to markup escaping discrepancies in the post-processed file.<br/>
+Make sure to double check markup code after post-processing xliff files created with the Translation Workspace Text filter.<br/>
+<b>Tip!</b> Do to not use the Translation Workspace Text filter for preparing markup files (xml, html...).</p>
+
+<p><img src="./images/pre-process.png"/></p>
+<p>The image above shows a finished pre-process run. Files with errors will be highlighted in red and files with warnings will be highlighted in yellow.</p>
+<p><b>NOTE!</b> Error files have not been pre-processed and need to be checked. The error could for example be an invalid xliff, problems with locating the path, the file might be write protected or you might not have write permissions in the folder where it resides.</p>
+
+<p>&nbsp;</p>
+<h1 id="post_processing">Post-processing</h1>
+<table border="1">
+	<tr>
+		<td colspan=3 valign=top><b>Buttons and checkboxes</b></td>
+	</tr>
+	<tr>
+		<td align="center"><img src="./images/button_add.png"/>
+		<td>Add</td>
+		<td>Add xliff files for post-processing. You add files by folder.</td>
+	</tr>
+	<tr>
+		<td align="center"><img src="./images/button_remove.png"/>
+		<td>Remove</td>
+		<td>Remove selected file(s) from the list.</td>
+	</tr>
+	<tr>
+		<td align="center"><img src="./images/button_clear.png"/>
+		<td>Clear</td>
+		<td>Remove all files from the list.</td>
+	</tr>
+	<tr>
+		<td align="center"><img src="./images/button_go.png"/>
+		<td>Go</td>
+		<td>Run the post-process.</td>
+	</tr>
+	<tr>
+		<td align="center"><img src="./images/save_log.png"/>
+		<td>Save Log</td>
+		<td>Save the result to an html log file.</td>
+	</tr>
+	<tr>
+		<td align="center"><img src="./images/dry_run.png"/>
+		<td>Dry run</td>
+		<td>When checked TiLT do not save the files. This way you can test the patterns on the files and see the outcome.</td>
+	</tr>
+</table>
+
+<p><b>NOTE!</b> You do not need to post-process xliff files created by Translation Workspace Tools. The xliff files should convert back to original format with no issues. The post-process only need to be done on third party xliff files. You are of course free to post-process any xliff file pre-processed by TiLT if you so choose.</p>
+
+<p>Select the <i id="ui">&lt;Post Process&gt;</i> tab and add one or more files to the file list. You do that by clicking the <i id="ui">&lt;Add&gt;</i> button or using <b>drag-and-drop</b>.</p>
+
+<p>You can remove one or more files from the file list. Select one or more files in the list and click the <i id="ui">&lt;Remove&gt;</i> button, which will remove all selected files from the list. Remove all files from the list by clicking the <i id="ui">&lt;Clear&gt;</i> button.</p>
+
+<p>When you are ready adding files, click the <i id="ui">&lt;Go&gt;</i> button to execute the post-process.</p>
+
+<p><b>NOTE!</b> You do not need to add any patterns to the pattern list in the post-process. All information TiLT requires can be found in the xliff files.</p>
+
+<p><b>Note! x-text:</b> You will get a notification when pre-processing xliff files that has been created using Translation Workspace Text Filter. The Translation Workspace XML parser and the Translation Workspace Text File parser escape and unescape markup code differently. This could lead to markup escaping discrepancies in the post-processed file.<br/>
+Make sure to double check markup code after post-processing xliff files created with the Translation Workspace Text filter.<br/>
+<b>Tip!</b> Do to not use the Translation Workspace Text filter for preparing markup files (xml, html...).</p>
+
+<p><img src="./images/post-process.png"/></p>
+<p>The image above shows a finished post-process run. Files with errors will be highlighted in red and files with warnings will be highlighted in yellow.</p>
+
+<p>&nbsp;</p>
+<h1 id="preview">Preview</h1>
+<table border="1">
+	<tr>
+		<td colspan=3 valign=top><b>Buttons and checkboxes</b></td>
+	</tr>
+	<tr>
+		<td align="center"><img src="./images/button_add.png"/>
+		<td>Add</td>
+		<td>Add an xliff file for preview.</td>
+	</tr>
+	<tr>
+		<td align="center"><img src="./images/button_clear.png"/>
+		<td>Clear</td>
+		<td>Clear the preview window. This closes the loaded xliff file.</td>
+	</tr>
+	<tr>
+		<td align="center"><img src="./images/button_update.png"/>
+		<td>Update View</td>
+		<td>Apply the patterns in the pattern list to the loaded xliff file.</td>
+	</tr>
+	<tr>
+		<td align="center"><img src="./images/button_save.png"/>
+		<td>Save</td>
+		<td>Save the loaded xliff file.</td>
+	</tr>
+	<tr>
+		<td align="center"><img src="./images/button_saveas.png"/>
+		<td>Save As...</td>
+		<td>Save the loaded xliff file as...</td>
+	</tr>
+	<tr>
+		<td align="center"><img src="./images/autoupdate.png"/>
+		<td>Autoupdate view</td>
+		<td>When checked TiLT applies the patterns in the pattern list every time it changes i.e. when a pattern is added, edited or removed.</td>
+	</tr>
+	<tr>
+		<td align="center"><img src="./images/show_skeleton.png"/>
+		<td>Show skeleton</td>
+		<td>When checked, and if the xliff file has a skeleton (non-translatable data), the skeleton will be shown in the preview together with the segments.</td>
+	</tr>
+	<tr>
+		<td align="center"><img src="./images/show_tu.png"/>
+		<td>Show tu and id</td>
+		<td>When checked all segment id's will be shown in the preview together with the segments.</td>
+	</tr>
+</table>
+
+<p>Preview is a key feature in TiLT. Here you can test patterns on an xliff file and instantly see the expected results. You can choose to save the loaded xliff file after applying the patterns.</p>
+
+<p>Select the <i id="ui">&lt;Preview&gt;</i> tab and load an xliff file. You do that by clicking the <i id="ui">&lt;Add&gt;</i> button or using <b>drag-and-drop</b>.</p>
+
+<p><img src="./images/preview_plain.png"/></p>
+<p>The default view show the text in all segments separated by a line break, see image above.</p>
+<p>Translatable text is colored black. Non-translatable text (i.e. segment is set to <b>translate="no"</b>) is colored light grey with a grey highlight. External segments are colored light grey. Non-translatable Internal text is colored red.</p>
+
+<p><img src="./images/preview_skeleton.png"/></p>
+<p>If the xliff file has a skeleton file (non-translatable data outside the segments), the skeleton will be shown in the Preview together with the segments, see image above.</p>
+<p>In this view segments are not necessarily separated by a line break. The skeleton data decides where line breaks occur.</p>
+<p>You add the skeleton to the Preview by clicking the <i id="ui">&lt;Show skeleton&gt;</i> checkbox.</p>
+
+<p><img src="./images/preview_tu.png"/></p>
+<p>If you want to see the segment boundary and the segment id, you check the <i id="ui">&lt;Show tu and id&gt;</i> checkbox. The segment boundaries are shown as xml tags named with the id, see image above.</p>
+
+<p><img src="./images/preview_all.png"/></p>
+<p>You can choose to have both skeleton view and tu view active at the same time, see image above.</p>
+
+<p><img src="./images/preview_patterns_applied.png"/></p>
+<p>You apply patterns to the Preview by adding them to the pattern list and then updating the Preview. You update the Preview by clicking the <i id="ui">&lt;Update view&gt;</i> button (or use <a href="#accelerators">accelerator</a> keys), see image above.</p>
+<p>If you check the <i id="ui">&lt;Autoupdate view&gt;</i> checkbox, TiLT automatically applies the patterns to the Preview as soon as any change occurs in the pattern list, i.e. when a pattern is added, edited or removed.</p>
+
+<p><img src="./images/preview_contextmenu.png"/></p>
+<p>Another feature in the Preview is the possibility to add patterns from the text in the loaded xliff file.</p>
+<p>Select a text, right click and select either <i id="ui">&lt;Add Selection as External&gt;</i> or <i id="ui">&lt;Add Selection as Internal&gt;</i> from the right click menu, see image above. The selected text will now be appended to the pattern list, see image below.</p>
+<p><img src="./images/preview_pattern_applied_contextmenu.png"/></p>
+
+<p>&nbsp;</p>
+<h2 id="change_preview_font">Change Preview Font</h2>
+<p>You can change font and font size for the Preview from the <i id="ui">&lt;Settings&gt;</i> menu or by right clicking the Preview and select <i id="ui">&lt;Set a Preview Font&gt;</i> from the right click menu.</p>
+
+<p>&nbsp;</p>
+<h2 id="find_in_preview">Search in Preview</h2>
+<p>You can search the Preview using a loaded pattern as a search criteria.</p>
+<p>Select a pattern in the patternlist, right click and select <i id="ui">&lt;Find Next in Preview&gt;</i> to search Down in the loaded Preview file or  <i id="ui">&lt;Find Previous in Preview&gt;</i> to search Up in the loaded Preview file (or use <a href="#accelerators">accelerator</a> keys). If a match is found it will be selected in the Preview, see image below.</p>
+<p><img src="./images/preview_search.png"/></p>
+
+<p>&nbsp;</p>
+<h1 id="view_process_details">View process details</h1>
+<p><img src="./images/button_process_details.png"/> By clicking this button after a TiLT pre-process, a detailed view will open (you can also use <a href="#accelerators">accelerator</a> keys).</p>
+<p><img src="./images/pre-process_details.png"/></p>
+<p>The detailed view will list the amount of changes made and markup type for each pattern from the previous pre-process execution.<br/>
+You can store the results in an html log file by clicking the <i id="ui">Save</i> button.</p>
+<p>Clicking the <i id="ui">Hide detailed view</i> / <i id="ui">Show detailed view</i> links in the top right corner of the log file toggles the detail level, see images below.</p>
+<p><img src="./images/report_detailed.png"/></p>
+<p>The image above show the expanded detailed view.</p>
+<p><img src="./images/report.png"/></p>
+<p>The image above show the collapsed default view.</p>
+
+<p>&nbsp;</p>
+<h1 id="accelerators">Accelerators</h1>
+<table border="1">
+	<tr>
+		<td colspan=2 valign=top><b>Application specific</b></td>
+	</tr>
+	<tr>
+		<td>Ctrl&nbsp;+&nbsp;Q</td>
+		<td>Quit TiLT. If you have any unsaved patterns you will be prompted to save.</td>
+	</tr>
+	<tr>
+		<td>F1</td>
+		<td>Opens this help.</td>
+	</tr>
+	<tr>
+		<td colspan=2 valign=top><b>File list specific</b></td>
+	</tr>
+	<tr>
+		<td>Delete</td>
+		<td>Remove selected xliff file(s) from the pre- or post-process list.</td>
+	</tr>
+	<tr>
+		<td colspan=2 valign=top><b>Miscellaneous</b></td>
+	</tr>
+	<tr>
+		<td>Ctrl&nbsp;+&nbsp;P</td>
+		<td>Opens the detailed pre-process view.</td>
+	</tr>
+	<tr>
+		<td>Enter</td>
+		<td>Activates the object that has focus, unless there are any characters in the pattern editor text field. In that case it will add the text to the pattern list.</td>
+	</tr>
+	<tr>
+		<td>Left&nbsp;Arrow</td>
+		<td>Change process tab to next left.</td>
+	</tr>
+	<tr>
+		<td>Right&nbsp;Arrow</td>
+		<td>Change process tab to next right.</td>
+	</tr>
+	<tr>
+		<td colspan=2 valign=top><b>Pattern file specific</b></td>
+	</tr>
+	<tr>
+		<td>Ctrl&nbsp;+&nbsp;N</td>
+		<td>Create an empty pattern list. If there are any unsaved patterns loaded you will be prompted to save.</td>
+	</tr>
+	<tr>
+		<td>Ctrl&nbsp;+&nbsp;O</td>
+		<td>Open a pattern file. If you have patterns loaded you will be prompted about whether you want to replace or append to current list.</td>
+	</tr>
+	<tr>
+		<td>Ctrl&nbsp;+&nbsp;S</td>
+		<td>Save the loaded pattern list.</td>
+	</tr>
+	<tr>
+		<td>Ctrl&nbsp;+&nbsp;Shift&nbsp;+&nbsp;S</td>
+		<td>Save the loaded pattern list as...</td>
+	</tr>
+	<tr>
+		<td colspan=2 valign=top><b>Pattern list specific</b></td>
+	</tr>
+	<tr>
+		<td>Ctrl&nbsp;+&nbsp;D</td>
+		<td>Toggle disabled/enabled for the selected pattern.</td>
+	</tr>
+	<tr>
+		<td>Ctrl&nbsp;+&nbsp;Delete</td>
+		<td>Remove all patterns from the list.<br/><b>NOTE!</b> TiLT handles pattern files about the same as any text editor. This means that if you have a pattern file open and remove all patterns from the list, the file is still open. So if you now save the file you lose all previous data you have saved in that file.</td>
+	</tr>
+	<tr>
+		<td>Ctrl&nbsp;+&nbsp;E</td>
+		<td>Edit the selected pattern. You can also do this by <b>double-clicking</b> a pattern in the list.</td>
+	</tr>
+		<td>Ctrl&nbsp;+&nbsp;Insert</td>
+		<td>If there are no characters in the pattern editor text field the cursor will be put in the pattern editor text field so you can start typing a pattern.<br/>If there are any characters in the pattern editor text field the text will be added to the pattern list.</td>
+	</tr>
+	<tr>
+		<td>Delete</td>
+		<td>Remove the selected pattern from the list.</td>
+	</tr>
+	<tr>
+		<td>Enter</td>
+		<td>If there are any characters in the pattern editor text field the text will be added to the pattern list.</td>
+	</tr>
+	<tr>
+		<td>Escape</td>
+		<td>Reset the pattern editor. If you are in edit mode you will leave it.</td>
+	</tr>
+	<tr>
+		<td colspan=2 valign=top><b>Preview specific</b></td>
+	</tr>
+	<tr>
+		<td>F3</td>
+		<td>Search from cursor DOWN in the preview for the pattern you have selected in the patternlist</td>
+	</tr>
+	<tr>
+		<td>F4</td>
+		<td>Search from cursor UP in the preview for the pattern you have selected in the patternlist</td>
+	</tr>
+	<tr>
+		<td>F5</td>
+		<td>Refresh/update the preview.</td>
+	</tr>
+</table>
+
+<p>&nbsp;</p>
+<h1 id="links">Links</h1>
+<p>Regular expression operations: <a href="http://docs.python.org/2/library/re.html">http://docs.python.org/2/library/re.html</a></p>
+<p>Regular Expression HOWTO: <a href="http://docs.python.org/2/howto/regex.html">http://docs.python.org/2/howto/regex.html</a></p>
